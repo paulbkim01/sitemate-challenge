@@ -9,7 +9,10 @@
   </head>
   <body>
     <button id="btn">Click Me</button>
-    <p class="dialogue">You just clicked "yes"</p>
+    <div class="dialogue">
+      <span>You just clicked</span>
+      <span class="dialogue-variable">"yes"</span>
+    </div>
 
     <div class="modal-container">
       <div class="modal-content">
@@ -26,15 +29,21 @@
   const modalContainer = document.querySelector('.modal-container')
   const modalBtnYes = document.querySelector('.modal-btn-yes')
   const modalBtnCancel = document.querySelector('.modal-btn-cancel')
+  const dialogue = document.querySelector('.dialogue')
+  const dialogueWord = document.querySelector('.dialogue-variable')
 
-  btn.addEventListener('click', openModal)
-  modalBtnYes.addEventListener('click', hideModal)
-  modalBtnCancel.addEventListener('click', hideModal)
+  btn.addEventListener('click', handleModalOpen)
+  modalBtnYes.addEventListener('click', handleModalClose)
+  modalBtnCancel.addEventListener('click', handleModalClose)
 
-  function hideModal() {
+  function handleModalClose(e) {
     modalContainer.style.visibility = 'hidden'
+    dialogue.style.visibility = 'visible'
+    dialogueWord.textContent = `"${e.target.textContent}"`
+    e.stopPropagation()
   }
-  function openModal() {
+
+  function handleModalOpen() {
     modalContainer.style.visibility = 'visible'
   }
 </script>
